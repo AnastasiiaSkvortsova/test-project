@@ -1,8 +1,5 @@
 package com.gmail.pusichek007;
 
-import java.util.ArrayList;
-import org.openqa.selenium.WebDriver;
-
 
 public class AccountCreator {
 
@@ -13,10 +10,6 @@ public class AccountCreator {
     }
 
     public AccountCreationResults createAccount(String fName, String lName, String email, String password) {
-
-        //navigate to registration page
-        PageNavigation pageNavigation = new PageNavigation(driver);
-        pageNavigation.navigateToRegistrationPage();
 
         //get and input login
         driver.fillInputById(AccountConstants.FirstNameFieldID, fName);
@@ -37,13 +30,5 @@ public class AccountCreator {
         boolean isCr = (errorMessage == null);
 
        return new AccountCreationResults(isCr, errorMessage);
-    }
-
-    public void refreshRegistrationPage() {
-
-        driver.clearFieldById(AccountConstants.FirstNameFieldID);
-        driver.clearFieldById(AccountConstants.LastNameFieldID);
-        driver.clearFieldById(AccountConstants.EmailFieldID);
-        driver.clearFieldById(AccountConstants.PasswordFieldID);
     }
 }

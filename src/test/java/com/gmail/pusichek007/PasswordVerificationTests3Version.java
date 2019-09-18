@@ -14,7 +14,7 @@ public class PasswordVerificationTests3Version {
     @Test
     public void createAccount_FailedWithPasswordError (String password) {
 
-        WebDriverWrapper driver = new WebDriverWrapper();
+        WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
 
         String fName  = AccountConstants.ValidFirstName;
         String lName  = AccountConstants.ValidLastName;

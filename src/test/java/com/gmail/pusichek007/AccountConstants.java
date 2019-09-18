@@ -5,6 +5,7 @@ public class AccountConstants {
 
     public static final String LoginFrameId = "__afishaidcdiFrame";
     public static final String RegistrationFrameId = "afishaidcallbackframe";
+    public static final String RegistrationButtonCSS = "[href='\\/WaitAuthorization\\/SelectedRegistration']";
     public static final String LoginPageButtonClass = "user-bar__text";
     public static final String RegistrationButtonLinkText = "Зарегистрируйтесь";
     // public static final String LoginPageRegistrationButtonXpath = "/html//div[@id='cdibody']/div[@class='popup-wrap']//a[@href='/WaitAuthorization/SelectedRegistration']";

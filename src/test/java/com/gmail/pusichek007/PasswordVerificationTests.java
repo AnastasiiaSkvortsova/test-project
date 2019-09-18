@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class PasswordVerificationTests {
 
-    WebDriverWrapper driver = new WebDriverWrapper();
+    WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
 
     @Test
     public void createAccount_ShortPassword_GetError () {
@@ -20,8 +20,6 @@ public class PasswordVerificationTests {
 
        Assert.assertFalse(result.accountIsCreated());
        Assert.assertTrue(result.getError().contains(AccountConstants.ErrorMessageInvalidPassword));
-
-       accountCreator.refreshRegistrationPage();
     }
     @Test
     public void createAccount_EmptyPassword_GetError () {
@@ -37,7 +35,6 @@ public class PasswordVerificationTests {
         Assert.assertFalse(result.accountIsCreated());
         Assert.assertTrue(result.getError().contains(AccountConstants.ErrorMessageInvalidPassword));
 
-        accountCreator.refreshRegistrationPage();
     }
     @Test
     public void createAccount_PasswordWithoutUpperCase_GetError () {
@@ -53,7 +50,6 @@ public class PasswordVerificationTests {
         Assert.assertFalse(result.accountIsCreated());
         Assert.assertTrue(result.getError().contains(AccountConstants.ErrorMessageInvalidPassword));
 
-        accountCreator.refreshRegistrationPage();
     }
     @Test
     public void CreateAccount_PasswordWithoutLowerCase_GetError () {
@@ -69,7 +65,6 @@ public class PasswordVerificationTests {
         Assert.assertFalse(result.accountIsCreated());
         Assert.assertTrue(result.getError().contains(AccountConstants.ErrorMessageInvalidPassword));
 
-        accountCreator.refreshRegistrationPage();
     }
 
 

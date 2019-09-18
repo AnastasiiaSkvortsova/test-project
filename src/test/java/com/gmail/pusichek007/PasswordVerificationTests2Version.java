@@ -26,7 +26,7 @@ public class PasswordVerificationTests2Version {
 
     public void createAccount_FailedWithPasswordError (String password) {
 
-        WebDriverWrapper driver = new WebDriverWrapper();
+        WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
 
         //arrange
         String fName  = AccountConstants.ValidFirstName;
@@ -40,8 +40,5 @@ public class PasswordVerificationTests2Version {
         //assert
         Assert.assertFalse(result.accountIsCreated());
         Assert.assertTrue(result.getError().contains(AccountConstants.ErrorMessageInvalidPassword));
-
-        //refresh the page for next test execution
-        accountCreator.refreshRegistrationPage();
     }
 }

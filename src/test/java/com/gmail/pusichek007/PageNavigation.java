@@ -18,8 +18,8 @@ public class PageNavigation {
         driver.waitPageUntilPresenseOfElementFoundByClassNamw(AccountConstants.LoginPageButtonClass);
         driver.pressButtonByClassName(AccountConstants.LoginPageButtonClass);
         driver.waitUntilFrameToBeAvailiableAndSwitchToIt(AccountConstants.LoginFrameId);
-        driver.waitPageUntilPresenseOfElementFoundByLinkText(AccountConstants.RegistrationButtonLinkText);
-        driver.pressButtonByLinkText(AccountConstants.RegistrationButtonLinkText);
+        driver.waitPageUntilPresenseOfElementFoundByCSS(AccountConstants.RegistrationButtonCSS);
+        driver.pressButtonByCSSSelector(AccountConstants.RegistrationButtonCSS);
         driver.waitPageUntilPresenseOfElementFoundByID(AccountConstants.FirstNameFieldID);
     }
 }

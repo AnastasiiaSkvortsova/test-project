@@ -1,6 +1,7 @@
 package com.gmail.pusichek007;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,11 +14,19 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverWrapper {
 
+    private static WebDriverWrapper driverInstance;
     WebDriver driver;
 
-    public WebDriverWrapper () {
+    private WebDriverWrapper(){
+
         driver = new ChromeDriver();
         System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
+    }
+
+    public static WebDriverWrapper getDriverInstance(){
+        if (driverInstance == null){
+            driverInstance = new WebDriverWrapper();}
+        return driverInstance;
     }
 
     public void switchToFrameById (String id){
@@ -31,9 +40,19 @@ public class WebDriverWrapper {
         mouseHover.sendKeys(input);
     }
 
+    public void moveToElementAndClick(String className){
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.className(className))).click().perform();
+    }
+
     public void waitPageUntilPresenseOfElementFoundByID(String id) {
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+    }
+
+    public void waitPageUntilPresenseOfElementFoundByCSS(String css) {
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(css)));
     }
 
     public void waitPageUntilPresenseOfElementFoundByClassNamw(String className) {
@@ -49,6 +68,11 @@ public class WebDriverWrapper {
     public void waitPageUntilPresenseOfElementFoundByLinkText(String linkText) {
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(linkText)));
+    }
+
+    public void waitUntilElementToBeClickable(String className){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className(className)));
     }
 
     public void waitUntilFrameToBeAvailiableAndSwitchToIt (String frameId){
@@ -113,7 +137,7 @@ public class WebDriverWrapper {
     }
 
     public void clearFieldById (String id) {
-        driver.findElements(By.id(id)).clear();
+        driver.findElement(By.id(id)).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.BACK_SPACE));
     }
 
 }

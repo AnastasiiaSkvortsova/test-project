@@ -1,29 +1,22 @@
 package com.gmail.pusichek007;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.SplittableRandom;
+import org.testng.annotations.*;
 
 public class RegistrationVerificationTests {
 
-    //arrange
-    WebDriverWrapper driver = new WebDriverWrapper();
-
-    //@BeforeGroups
-    //public void navigateToRegistrationPage(){
-      //  driver.openUrl(AccountConstants.homePageUrl);
-        //driver.waitPageUntilPresenseOfElementFoundByClassNamw(AccountConstants.LoginPageButtonClass);
-        //driver.pressButtonByClassName(AccountConstants.LoginPageButtonClass);
-        //driver.waitUntilFrameToBeAvailiableAndSwitchToIt(AccountConstants.LoginFrameId);
-        //driver.waitPageUntilPresenseOfElementFoundByLinkText(AccountConstants.RegistrationButtonLinkText);
-        //driver.pressButtonByLinkText(AccountConstants.RegistrationButtonLinkText);
-        //driver.waitPageUntilPresenseOfElementFoundByID(AccountConstants.FirstNameFieldID);
-    //}
+    @BeforeSuite(alwaysRun = true)
+    //navigate to registration page
+    public void navigateToRegistrationPage(){
+        WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
+        driver.openUrl(AccountConstants.homePageUrl);
+        driver.waitPageUntilPresenseOfElementFoundByClassNamw(AccountConstants.LoginPageButtonClass);
+        driver.pressButtonByClassName(AccountConstants.LoginPageButtonClass);
+        driver.waitUntilFrameToBeAvailiableAndSwitchToIt(AccountConstants.LoginFrameId);
+        driver.waitPageUntilPresenseOfElementFoundByLinkText(AccountConstants.RegistrationButtonLinkText);
+        driver.pressButtonByLinkText(AccountConstants.RegistrationButtonLinkText);
+        driver.waitPageUntilPresenseOfElementFoundByID(AccountConstants.FirstNameFieldID);
+    }
 
     @Test (groups = {"RegistrationVerificationTests", "EmptyFields"})
     public void createAccount_EmptyFields_GetError(){
@@ -76,14 +69,23 @@ public class RegistrationVerificationTests {
     public void createAccount_FailedWithEmptyOnInvalidFieldsError (String fName, String lName, String email, String password, String errorMes){
 
         //act
+        WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
         AccountCreator accountCreator = new AccountCreator(driver);
         AccountCreationResults result = accountCreator.createAccount(fName,lName,email,password);
 
         //assert
         Assert.assertFalse(result.accountIsCreated());
         Assert.assertTrue(result.getError().contains(errorMes));
-
-        //refresh the page for next test execution
-        accountCreator.refreshRegistrationPage();
     }
+
+    @AfterMethod(alwaysRun = true)
+    //refresh the page for next test execution
+    public void clearFields(){
+        WebDriverWrapper driver = WebDriverWrapper.getDriverInstance();
+        driver.clearFieldById(AccountConstants.FirstNameFieldID);
+        driver.clearFieldById(AccountConstants.LastNameFieldID);
+        driver.clearFieldById(AccountConstants.EmailFieldID);
+        driver.clearFieldById(AccountConstants.PasswordFieldID);
+    }
+
 }
