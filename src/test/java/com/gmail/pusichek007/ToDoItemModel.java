@@ -5,7 +5,13 @@ public class ToDoItemModel {
     public String name;
     public boolean isComplete;
 
+
     public ToDoItemModel(String newName, boolean isCompleteStatus){
+        name = newName;
+        isComplete = isCompleteStatus;
+    }
+
+    public ToDoItemModel(String newName, Boolean isCompleteStatus){
         name = newName;
         isComplete = isCompleteStatus;
     }

@@ -13,7 +13,7 @@ public class APIWebClientTesting {
 
     ToDoItemModel toDoItemModel;
     ToDoItemModel result;
-    ToDoItemModel newItem;
+    ExceptionalToDoModel exceptionalToDoModel;
 
     public static final String toDoItemName = "washYourDish";
     public static final String toDoNewItemName = "cookYourLunch";
@@ -32,17 +32,17 @@ public class APIWebClientTesting {
         given().when().get(APIRequest+555).then().statusCode(404);
     }
 
-    //@Test (priority = 3)
+    @Test (priority = 3)
     //put item without required parameter name
-    //public void postNewToDoItemWithoutName_GetError(){
-       // toDoItemModel = new ToDoItemModel("",);
-       // given().contentType(ContentType.JSON)
-               // .body(toDoItemModel)
-                //.when()
-                //.post(APIRequest)
-                //.then()
-                //.statusCode(400);
-    //}
+    public void postNewToDoItemWithoutName_GetError(){
+        exceptionalToDoModel = new ExceptionalToDoModel("",null);
+        given().contentType(ContentType.JSON)
+                .body(exceptionalToDoModel)
+                .when()
+                .post(APIRequest)
+                .then()
+                .statusCode(400);
+    }
 
     @Test (priority = 4)
     //post new ToDoItem
